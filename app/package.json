@@ -1,16 +1,18 @@
 {
   "name": "app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./dist",
+  "version": "0.0.1",
+  "description": "Frontend",
+  "main": "./dist/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "serve -s dist"
+    "start": "serve -s dist"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "React",
+    "JS"
+  ],
+  "author": "Alex",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "serve": "^14.2.3"
   }
 }
