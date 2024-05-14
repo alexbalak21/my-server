@@ -1,0 +1,27 @@
+#GET
+GET http://127.0.0.1:5000/server/
+content-type: application/json
+
+
+###
+POST http://127.0.0.1:5000/server/
+content-type: application/json
+{
+    "name": "Build API"
+}
+
+###
+PUT http://127.0.0.1:5000/server/5
+content-type: application/json
+{
+    "name": "UPDTAE TEST"
+}
+
+###
+PATCH http://127.0.0.1:5000/server/7
+
+
+###
+DELETE http://127.0.0.1:5000/server/5
+
+

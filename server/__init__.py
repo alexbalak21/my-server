@@ -1,12 +1,9 @@
 from flask import Flask
-from flask import render_template
-
+from router.main import main
 app = Flask(__name__)
 
-@app.route('/server/')
-def hello_world():
-    return "<h1>Hello from my Flask server !</h1>"
+app.register_blueprint(main, url_prefix='/server/')
+
 
 if __name__ == "__main__":
-  app.run(debug=True)
-
+    app.run(debug=True)
