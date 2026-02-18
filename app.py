@@ -1,8 +1,5 @@
 from flask import Flask, send_from_directory, render_template
-
-# Import blueprints
-from react_app import react_bp
-from password_generator import password_bp
+from react_loader import create_react_blueprint
 
 
 app = Flask(
@@ -13,11 +10,8 @@ app = Flask(
 )
 
 # Register mini‑apps
-app.register_blueprint(react_bp)
-app.register_blueprint(password_bp)
-
-print(app.url_map)
-
+app.register_blueprint(create_react_blueprint("react_app", "/apps/react"))
+app.register_blueprint(create_react_blueprint("password_generator", "/apps/passgen"))
 
 # --- React catch‑all route ---
 @app.route("/", defaults={"path": ""})
