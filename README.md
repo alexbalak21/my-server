@@ -1,3 +1,4 @@
+# My Website
 
 Overview
 This project is a modular Flask server designed to host multiple React mini‑applications under a unified backend.
@@ -14,29 +15,55 @@ Maintain clean separation between backend logic and frontend builds
 Deploy new mini‑apps by simply adding a folder + blueprint
 
 📂 Project Structure
+
+```text
 my-server/
-│
-├── app.py                     # Main Flask application
-├── templates/                 # Main React SPA (optional)
-│
-├── react/                     # React source code (Vite project)
+├── app.py                  # Main Flask application
+├── react_loader.py         # React loader utility
+├── home/                   # Main Homepage at /
+│   └── build/
+│       └── index.html
+...existing code...
+├── react/       # React source code (Vite project)
 │   ├── src/
+│   │   ├── App.tsx
+│   │   ├── index.css
+│   │   └── main.tsx
 │   ├── public/
+│   │   └── favicon.svg
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
 │   ├── vite.config.ts
-│   └── ...
-│
-├── react_app/                 # Flask blueprint + built React app
+│   └── README.md
+├── react_app/        # Flask blueprint + built React app
 │   ├── __init__.py
 │   └── build/
 │       ├── index.html
 │       └── assets/
-│
-├── password_generator/        # Another mini‑app (React or static)
+│           └── favicon.svg
+├── password_generator/  # Another mini-app (static)
 │   ├── __init__.py
 │   └── build/
-│
-├── env/                       # Python virtual environment
-└── remove_pycache.ps1         # Utility script
+│       ├── index.html
+│       └── assets/
+│           └── favicon.svg
+├── home/
+│   └── build/
+│       └── index.html
+├── env/                    # Python virtual environment
+│   ├── Include/
+│   ├── Lib/
+│   ├── Scripts/
+│   └── pyvenv.cfg
+├── __pycache__/
+├── remove_pycache.ps1      # Utility script
+├── .gitignore
+└── .git/
+```
 
 🧩 How the Architecture Works
 1. Flask handles routing
