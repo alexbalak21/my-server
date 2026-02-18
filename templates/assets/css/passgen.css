@@ -1,0 +1,90 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+/* Input focus cleanup */
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: initial !important;
+}
+
+/* Checkbox sizing */
+input[type="checkbox"] {
+  height: 25px;
+  width: 25px;
+}
+
+/* Label text size */
+label {
+  font-size: 20px !important;
+}
+
+/* Checkbox checked color */
+.form-check-input:checked {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+/* Output field */
+#output {
+  max-width: 450px;
+  height: 46px;
+  font-size: 16px;
+}
+
+/* Mobile spacing for copy button */
+@media (max-width: 767px) {
+  #copy {
+    margin-top: 30px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Desktop alignment for output */
+@media (min-width: 768px) {
+  #output {
+    margin-left: 108px;
+  }
+}
+
+/* Length container spacing */
+#length-container {
+  margin-left: 24px;
+}
+
+/* Tooltip theming */
+html[data-bs-theme="light"] .tooltip {
+  --bs-tooltip-bg: LightGray;
+  --bs-tooltip-color: #000;
+}
+
+html[data-bs-theme="dark"] .tooltip {
+  --bs-tooltip-bg: #000;
+  --bs-tooltip-color: #fff;
+}
+
+/* Theme toggle icon */
+#themeToggle svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Sun icon stroke */
+#sun svg path {
+  stroke: currentColor;
+}
+
+/* Hover effect for theme toggle */
+#themeToggle:hover {
+  background-color: DimGray;
+}
+
+/* Copy button icon */
+#copy svg {
+  width: 18px;
+  height: 18px;
+  color: white;
+}
