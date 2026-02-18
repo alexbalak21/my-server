@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, render_template
 
 # Import blueprints
-from notes_app import notes_bp
+from react_app import react_bp
 from password_generator import password_bp
 
 
@@ -13,7 +13,7 @@ app = Flask(
 )
 
 # Register mini‑apps
-app.register_blueprint(notes_bp)
+app.register_blueprint(react_bp)
 app.register_blueprint(password_bp)
 
 print(app.url_map)
