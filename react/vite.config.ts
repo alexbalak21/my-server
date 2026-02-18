@@ -2,12 +2,15 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
+// Change this one variable when deploying different projects
+const APP_FOLDER = 'react_app'   // or 'notes_app', 'dashboard_app', etc.
+
 export default defineConfig({
-  base: '/apps/react/',        // URL where Flask serves the app
+  base: '/apps/react/',
   build: {
-    outDir: resolve(__dirname, '../react_app/build'),  // absolute path to build folder
-    emptyOutDir: true,          // clean the folder before building
-    assetsDir: 'assets'         // keep assets inside /build/assets
+    outDir: resolve(__dirname, `../${APP_FOLDER}/build`),
+    emptyOutDir: true,
+    assetsDir: 'assets'
   },
   plugins: [react()],
 })
