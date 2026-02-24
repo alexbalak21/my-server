@@ -1,16 +1,16 @@
-from flask import Blueprint, send_from_directory
+from flask import Blueprint, send_from_directory, send_file, Response
 import os
+import mimetypes
 
 def create_react_blueprint(folder_name: str, url_prefix: str):
     """
-    Creates a Flask Blueprint that serves a React build folder.
-
-    folder_name: name of the folder containing /build
-    url_prefix: URL path (e.g. '/apps/react')
+    Creates a Flask Blueprint that serves a React build folder
+    with support for .br and .gz precompressed assets.
     """
 
     base_path = os.path.join(os.path.dirname(__file__), folder_name)
     build_dir = os.path.join(base_path, "build")
+    assets_dir = os.path.join(build_dir, "assets")
 
     bp = Blueprint(
         folder_name,
@@ -19,18 +19,40 @@ def create_react_blueprint(folder_name: str, url_prefix: str):
         static_url_path=f"{url_prefix}/assets"
     )
 
+    def serve_compressed(base_path, filename):
+        """Serve .br or .gz if available."""
+        full = os.path.join(base_path, filename)
+
+        # Brotli first
+        if os.path.exists(full + ".br"):
+            response = send_file(full + ".br")
+            response.headers["Content-Encoding"] = "br"
+            response.headers["Content-Type"] = mimetypes.guess_type(filename)[0] or "application/octet-stream"
+            return response
+
+        # Gzip fallback
+        if os.path.exists(full + ".gz"):
+            response = send_file(full + ".gz")
+            response.headers["Content-Encoding"] = "gzip"
+            response.headers["Content-Type"] = mimetypes.guess_type(filename)[0] or "application/octet-stream"
+            return response
+
+        # Normal file
+        return send_from_directory(base_path, filename)
+
     @bp.route(url_prefix)
     @bp.route(f"{url_prefix}/<path:path>")
     def serve_app(path=""):
         # Serve assets
         if path.startswith("assets/"):
-            return send_from_directory(os.path.join(build_dir, "assets"), path[7:])
+            filename = path[7:]
+            return serve_compressed(assets_dir, filename)
 
         # Serve any file with an extension
         if "." in path:
-            return send_from_directory(build_dir, path)
+            return serve_compressed(build_dir, path)
 
-        # Serve index.html
+        # Serve index.html (not compressed)
         return send_from_directory(build_dir, "index.html")
 
     return bp
