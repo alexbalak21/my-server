@@ -1,11 +1,19 @@
 from flask import Flask, send_from_directory, send_file
+from app_loader import create_app_blueprint
 import os
 import mimetypes
 
 app = Flask(__name__)
 
+# Homepage build folder
 HOME_BUILD_DIR = os.path.join(os.path.dirname(__file__), "home", "build")
 HOME_ASSETS_DIR = os.path.join(HOME_BUILD_DIR, "assets")
+
+# Register mini‑apps with UNIQUE blueprint names
+app.register_blueprint(create_app_blueprint("react_app", "/apps/react", name="react_app_main"))
+app.register_blueprint(create_app_blueprint("password_generator", "/apps/passgen", name="passgen_main"))
+app.register_blueprint(create_app_blueprint("password_generator", "/passgen", name="passgen_short"))
+
 
 def serve_compressed(base_path, filename):
     full = os.path.join(base_path, filename)
@@ -24,6 +32,8 @@ def serve_compressed(base_path, filename):
 
     return send_from_directory(base_path, filename)
 
+
+# --- Homepage (root) React app ---
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_home(path):

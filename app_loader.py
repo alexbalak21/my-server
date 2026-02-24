@@ -1,10 +1,10 @@
-from flask import Blueprint, send_from_directory, send_file, Response
+from flask import Blueprint, send_from_directory, send_file
 import os
 import mimetypes
 
-def create_react_blueprint(folder_name: str, url_prefix: str):
+def create_app_blueprint(folder_name: str, url_prefix: str, name: str = None):
     """
-    Creates a Flask Blueprint that serves a React build folder
+    Creates a Flask Blueprint that serves a mini React app build folder
     with support for .br and .gz precompressed assets.
     """
 
@@ -13,14 +13,13 @@ def create_react_blueprint(folder_name: str, url_prefix: str):
     assets_dir = os.path.join(build_dir, "assets")
 
     bp = Blueprint(
-        folder_name,
+        name or folder_name,   # <‑‑ UNIQUE BLUEPRINT NAME SUPPORT
         __name__,
         static_folder=f"{folder_name}/build/assets",
         static_url_path=f"{url_prefix}/assets"
     )
 
     def serve_compressed(base_path, filename):
-        """Serve .br or .gz if available."""
         full = os.path.join(base_path, filename)
 
         # Brotli first
@@ -52,7 +51,7 @@ def create_react_blueprint(folder_name: str, url_prefix: str):
         if "." in path:
             return serve_compressed(build_dir, path)
 
-        # Serve index.html (not compressed)
+        # Serve index.html
         return send_from_directory(build_dir, "index.html")
 
     return bp

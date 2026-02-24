@@ -1,5 +1,5 @@
 from flask import Flask, send_from_directory
-from react_loader import create_react_blueprint
+from app_loader import create_react_blueprint
 from flask_compress import Compress
 import os
 
